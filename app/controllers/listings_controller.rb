@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :check_user, only: [:edit, :update, :destroy]
   def index
     @listings = Listing.all
   end
@@ -17,6 +18,7 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(listing_params)
+    @listing.user_id = current_user.id
 
     respond_to do |format|
       if @listing.save
@@ -56,5 +58,11 @@ class ListingsController < ApplicationController
 
     def listing_params
       params.require(:listing).permit(:title, :description, :price, :image)
+    end
+
+    def check_user
+      if current_user != @listing.user
+        redirect_to root_url, alert: "This does not belong to you!"
+      end
     end
 end

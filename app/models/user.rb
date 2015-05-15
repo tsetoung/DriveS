@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :listings, dependent: :destroy
   has_one :profile
 
   # Include default devise modules. Others available are:
