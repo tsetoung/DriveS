@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :profiles
 
   resources :listings do
-    resources :orders, only [:new, :create]
+    resources :orders, only: [:new, :create]
   end
 
   get 'pages/about'
