@@ -35,7 +35,7 @@ class ListingsController < ApplicationController
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
-        format.json { render json: @listing }
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,7 +47,7 @@ class ListingsController < ApplicationController
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit }
-        format.json { render json: @listing }
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
   end
