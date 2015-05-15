@@ -12,6 +12,10 @@ class ListingsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @listing }
+    end
   end
 
   def new
@@ -31,7 +35,7 @@ class ListingsController < ApplicationController
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
+        format.json { render json: @listingy }
       end
     end
   end
@@ -43,7 +47,7 @@ class ListingsController < ApplicationController
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
+        format.json { render json: @listing }
       end
     end
   end

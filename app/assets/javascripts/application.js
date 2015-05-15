@@ -14,3 +14,17 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$(document).ready(function(){
+  var stripeUrl = "https://github.com/stripe/stripe-ruby"
+  $.ajax({
+    url: stripeUrl,
+    type: "GET",
+    dataType: "json"
+  }).done(function(response){
+    console.log(response.current_observation.temp_f)
+  }).fail(function(){
+    console.log("ajax request not successful")
+  }).always(function(){
+    console.log("this always happens!")
+  })
+})
