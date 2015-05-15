@@ -29,10 +29,11 @@ class OrdersController < ApplicationController
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
-        format.json { render json: @order }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   private
     def set_order

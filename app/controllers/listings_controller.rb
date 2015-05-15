@@ -35,7 +35,7 @@ class ListingsController < ApplicationController
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
-        format.json { render json: @listingy }
+        format.json { render json: @listing }
       end
     end
   end
