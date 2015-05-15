@@ -1,19 +1,17 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @orders = Order.all
+  def sales
+    @orders = Order.all.where(seller: current_user).order("created_at DESC")
   end
 
-  def show
+  def purchases
+    @orders = Order.all.where(buyer: current_user).order("created_at DESC")
   end
 
   def new
     @order = Order.new
     @listing = Listing.find(params[:listing_id])
-  end
-
-  def edit
   end
 
   def create
@@ -33,26 +31,6 @@ class OrdersController < ApplicationController
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
